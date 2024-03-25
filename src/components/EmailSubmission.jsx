@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { database } from '../firebase';
 import { push, ref } from 'firebase/database';
+import styles from "./EmailSubmission.module.css"
 
 const EmailSubmission = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ const EmailSubmission = () => {
     try {
       // Push email to the 'emails' node in the database
       await push(ref(database, 'emails'), {email, name});
-      alert('Email submitted successfully!');
+      alert('You have joined The Stellar Cult');
       setEmail('');
       setName(''); // Clear input after submission
     } catch (error) {
@@ -21,24 +22,27 @@ const EmailSubmission = () => {
   };
 
   return (
-    <div>
+    <div className={styles.emailItems}>
 
       <form onSubmit={handleSubmit}>
-      <input
-          type="name"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <button type="submit">Join</button>
+      <h2 className={styles.joinCult}>JOIN THE CULT</h2>
+        <div className={styles.inputs}>
+          <input
+            type="name"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <button type="submit">JOIN</button>
+        </div>
       </form>
     </div>
   );
